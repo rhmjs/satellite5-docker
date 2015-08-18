@@ -26,10 +26,10 @@ if you are subscribing to locally cloned channels.**
   base channels and RHN tools channels.
 
 	```
-satellite-sync -c rhel-x86_64-server-6 \
-  -c rhn-tools-rhel-x86_64-server-6 \
-  -c rhel-x86_64-server-7 \
-  -c rhn-tools-rhel-x86_64-server-7
+	satellite-sync -c rhel-x86_64-server-6 \
+	  -c rhn-tools-rhel-x86_64-server-6 \
+	  -c rhel-x86_64-server-7 \
+	  -c rhn-tools-rhel-x86_64-server-7
 	```
 
 * Create a channel named "rhel7-rhel6-rhn" as a child to the 
