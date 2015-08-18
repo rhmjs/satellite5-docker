@@ -75,7 +75,9 @@ CLI examples on the Satellite server.
   the "rhel-x86_64-server-6" base channel, and limit its usage to "1".
 
 	```
-	spacecmd activationkey_create -n rhel7-docker-rhel6 -b rhel-x86_64-server-6
+	spacecmd activationkey_create -n rhel7-docker-rhel6 \
+	 -b rhel-x86_64-server-6
+	
 	spacecmd activationkey_setusagelimit 1-rhel7-docker-rhel6 1
 	```
 
@@ -96,6 +98,7 @@ RHEL7 host.
 
 	```
 	mkdir docker
+	
 	cd docker
 	```
 	
@@ -119,8 +122,9 @@ register to the Satellite server with the correct subscription type,
 then will commit that registered container to a new image that can be
 used as a base for future application containers.
 
-* Create the following dockerfile, named [Dockerfile.rhel6-rhntools](Dockerfile.rhel6-rhntools), on
-  the RHEL7 docker build server.
+* Create the following dockerfile, named 
+  [Dockerfile.rhel6-rhntools](Dockerfile.rhel6-rhntools), on the RHEL7 
+  docker build server.
 
 	```
 	# Start with the RHEL6 base image supplied by Red Hat
@@ -156,6 +160,7 @@ used as a base for future application containers.
 	 --serverUrl=https://satellite5-1.laptop.test/XMLRPC \
 	 --sslCACert=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT \
 	 --profilename=docker-rhel6 --activationkey=1-rhel7-docker-rhel6
+	 
 	docker commit rhel6-sat5reg rhel6-sat5reg
 	```
 
@@ -166,7 +171,8 @@ be used as the base for future application containers.
 This example will create an Apache web server on top of the
 rhel6-sat5reg image.
 
-* Create the following dockerfile named [Dockerfile.rhel6-httpd](Dockerfile.rhel6-httpd).
+* Create the following dockerfile named 
+  [Dockerfile.rhel6-httpd](Dockerfile.rhel6-httpd).
 
 	```
 	FROM rhel6-sat5reg
