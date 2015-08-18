@@ -149,10 +149,15 @@ used as a base for future application containers.
   the container host is a VM.  Then, commit the registration to the
   "rhel6-sat5reg" image.  This will create a profile named
   "docker-rhel6" in the Satellite server.
-```
-docker run --privileged --name="rhel6-sat5reg" rhel6-rhntools rhnreg_ks --force --norhnsd --nohardware --nopackages --serverUrl=https://satellite5-1.laptop.test/XMLRPC --sslCACert=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT --profilename=docker-rhel6 --activationkey=1-rhel7-docker-rhel6
-docker commit rhel6-sat5reg rhel6-sat5reg
-```
+
+	```
+	docker run --privileged --name="rhel6-sat5reg" rhel6-rhntools rhnreg_ks\
+	 --force --norhnsd --nohardware --nopackages \
+	 --serverUrl=https://satellite5-1.laptop.test/XMLRPC \
+	 --sslCACert=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT \
+	 --profilename=docker-rhel6 --activationkey=1-rhel7-docker-rhel6
+	docker commit rhel6-sat5reg rhel6-sat5reg
+	```
 
 An image named rhel6-sat5reg has now been successfully created, and can
 be used as the base for future application containers.
