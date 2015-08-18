@@ -1,10 +1,3 @@
-<head>
-	<style type="text/css">
-		pre {
-			background-color: #EEEEEE
-		}
-	</style>
-</head>
 # RHEL6 containers on a RHEL7 host registered to Satellite 5
 
 This document will describe the process for building RHEL6 containers on
