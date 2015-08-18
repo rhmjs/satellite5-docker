@@ -27,17 +27,17 @@ if you are subscribing to locally cloned channels.**
 
 	```
 	satellite-sync -c rhel-x86_64-server-6 \
-	  -c rhn-tools-rhel-x86_64-server-6 \
-	  -c rhel-x86_64-server-7 \
-	  -c rhn-tools-rhel-x86_64-server-7
+	 -c rhn-tools-rhel-x86_64-server-6 \
+	 -c rhel-x86_64-server-7 \
+	 -c rhn-tools-rhel-x86_64-server-7
 	```
 
 * Create a channel named "rhel7-rhel6-rhn" as a child to the 
   "rhel-x86_64-server-7" base channel.
   
 	```
-spacecmd softwarechannel_create -n rhel7-rhel6-rhn \
-  -l rhel7-rhel6-rhn -p rhel-x86_64-server-7 -a x86_64
+	spacecmd softwarechannel_create -n rhel7-rhel6-rhn \
+	 -l rhel7-rhel6-rhn -p rhel-x86_64-server-7 -a x86_64
 	```
 
 * Copy the following packages from the RHEL6 channel to this new child
@@ -58,13 +58,13 @@ spacecmd softwarechannel_create -n rhel7-rhel6-rhn \
 
 
 	```
-spacecmd softwarechannel_addpackages rhel7-rhel6-rhn \
-  rhn-setup-1*.el6.noarch libgudev1*.el6.x86_64 \
-  libudev*.el6.x86_64 newt*.el6.x86_64 newt-python*.el6.x86_64 \
-  pyOpenSSL*.el6.x86_64 python-gudev*.el6.x86_64 \
-  rhn-check*.el6.noarch rhn-client-tools*.el6.noarch \
-  rhnlib*.el6.noarch rhnsd*.el6.x86_64 slang*.el6.x86_64 \
-  yum-rhn-plugin*.el6.noarch
+	spacecmd softwarechannel_addpackages rhel7-rhel6-rhn \
+	 rhn-setup-1*.el6.noarch libgudev1*.el6.x86_64 \
+	 libudev*.el6.x86_64 newt*.el6.x86_64 newt-python*.el6.x86_64 \
+	 pyOpenSSL*.el6.x86_64 python-gudev*.el6.x86_64 \
+	 rhn-check*.el6.noarch rhn-client-tools*.el6.noarch \
+	 rhnlib*.el6.noarch rhnsd*.el6.x86_64 slang*.el6.x86_64 \
+	 yum-rhn-plugin*.el6.noarch
 	```
 
 Finally, an activation key must be created to allow the container to
@@ -76,10 +76,10 @@ CLI examples on the Satellite server.
   the "rhel-x86_64-server-6" base channel, and limit its usage to "1".
 
 	```
-spacecmd activationkey_create -n rhel7-docker-rhel6 \
- -b rhel-x86_64-server-6
+	spacecmd activationkey_create -n rhel7-docker-rhel6 \
+	 -b rhel-x86_64-server-6
 
-spacecmd activationkey_setusagelimit 1-rhel7-docker-rhel6 1
+	spacecmd activationkey_setusagelimit 1-rhel7-docker-rhel6 1
 	```
 
 ## Preparing the RHEL7 docker build server
@@ -92,25 +92,25 @@ RHEL7 host.
 * Subscribe the RHEL7 host to the "rhel7-rhel6-rhn" child channel.
 
 	```
-rhn-channel -a -c rhel7-rhel6-rhn
+	rhn-channel -a -c rhel7-rhel6-rhn
 	```
 
 * Create a local working directory and switch into it.
 
 	```
-mkdir docker
+	mkdir docker
 
-cd docker
+	cd docker
 	```
 
 * Download the RHEL6 RPMs into a subdirectory in the working folder
   named "./rhel6".
 
 	```
-yumdownloader --destdir=$PWD/rhel6/ --disablerepo=*  \
-  --enablerepo=rhel7-rhel6-rhn rhn-setup libgudev1 libudev newt \
-  newt-python pyOpenSSL python-gudev rhn-check rhn-client-tools \
-  rhnlib rhnsd slang yum-rhn-plugin
+	yumdownloader --destdir=$PWD/rhel6/ --disablerepo=*  \
+	 --enablerepo=rhel7-rhel6-rhn rhn-setup libgudev1 libudev newt \
+	 newt-python pyOpenSSL python-gudev rhn-check rhn-client-tools \
+	 rhnlib rhnsd slang yum-rhn-plugin
 	```
 
 ## Creating the RHN connected rhel6 image
@@ -177,7 +177,7 @@ rhel6-sat5reg image.
 
 	```
 	FROM rhel6-sat5reg
-	RUN yum -y install httpd systemd
+	RUN yum -y install httpd
 	EXPOSE 80
 	ENTRYPOINT /usr/sbin/httpd -X
 	```
