@@ -1,0 +1,4 @@
+FROM rhel6-sat5reg
+RUN yum -y install httpd systemd
+EXPOSE 80
+ENTRYPOINT /usr/sbin/httpd -X

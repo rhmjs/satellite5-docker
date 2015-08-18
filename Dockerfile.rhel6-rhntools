@@ -1,0 +1,16 @@
+# Start with the RHEL6 base image supplied by Red Hat
+FROM registry.access.redhat.com/rhel6
+
+# Inject and install the RHEL6 rhn tools acquired by the host
+ADD rhel6/*.rpm /root/rhel6/
+ADD http://satellite5-1.laptop.test/pub/rhn-org-trusted-ssl-cert-1.0-1.noarch.rpm /root/rhel6/
+RUN yum localinstall -y /root/rhel6/*.rpm
+
+# Enable the RHN plugin
+RUN sed -i 's/^enabled *= *0$/enabled = 1/' /etc/yum/pluginconf.d/rhnplugin.conf
+
+# Fix up one error that occurs when rhn tools runs inside container
+RUN sed -i '82s/$/ if device else None/' /usr/share/rhn/up2date_client/hwdata.py
+
+# When this container is executed, register against the Satellite server
+#	CMD if [ ! -e /etc/sysconfig/rhn/systemid ]; then rhnreg_ks --force --norhnsd --nohardware --nopackages --serverUrl=https://satellite5-1.laptop.test/XMLRPC --sslCACert=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT --profilename=docker-rhel6 --activationkey=1-rhel7-docker-rhel6; fi
